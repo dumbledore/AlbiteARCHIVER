@@ -1,0 +1,8 @@
+# build dirs
+build
+dist
+
+github.bat
+
+# Log files
+*.log
