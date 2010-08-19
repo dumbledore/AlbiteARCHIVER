@@ -1,13 +1,22 @@
 package main;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.zip.GZIPOutputStream;
  
 public class Main {
     public static final int MAGIC_NUMBER = 1095516754;
+    public static final Main instance = new Main();
+    public static URI jarURI = null;
+    private Main() {
+    }
 
     public static void main(String[] args) {
-
+        try {
+            jarURI = instance.getClass().getProtectionDomain().getCodeSource().getLocation().toURI();
+        } catch (URISyntaxException e) {}
+        
         if (args.length > 0) {
             if (args[0].equals("h") || args[0].equals("/h") || args[0].equals("?") || args[0].equals("/?") || args[0].equals("help")) {
                 System.out.println("ALBite Archive Builder");
@@ -26,6 +35,8 @@ public class Main {
             }
         }
 
+        System.out.println("JAR: " + jarURI.toASCIIString());
+        
         FileFilter fileFilter = new FileFilter() {
             public boolean accept(File file) {
                 System.out.print("Inspecting " + file.getName() + "...");
@@ -36,7 +47,7 @@ public class Main {
                 }
 
                 //Ignore jar files if present
-                if (file.getName().toLowerCase().endsWith("alb.jar")) {
+                if (file.toURI().equals(jarURI)) {
                     System.out.println("ignored.");
                     return false;
                 }
