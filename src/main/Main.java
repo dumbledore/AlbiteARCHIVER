@@ -13,7 +13,7 @@ public class Main {
                 System.out.println("=== Usage ===");
                 System.out.println();
                 System.out.println("builder");
-                System.out.println("  current directory to export.alb");
+                System.out.println("  current directory to export" + Archiver.FILE_EXTENSION);
                 System.out.println();
                 System.out.println("builder out");
                 System.out.println("  current directoty to file <out>");
@@ -34,7 +34,7 @@ public class Main {
         }
 
         if (args.length == 0) {
-            archiveFileName = "export.alb";
+            archiveFileName = "export" + Archiver.FILE_EXTENSION;
         }  else {
             if (args.length == 1) {
                 archiveFileName = args[0];

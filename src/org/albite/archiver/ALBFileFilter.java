@@ -36,7 +36,7 @@ public class ALBFileFilter implements FileFilter {
         }
 
         //Ignore alb files so one would not recompress the file
-        if (file.getName().toLowerCase().endsWith(".alb")) {
+        if (file.getName().toLowerCase().endsWith(Archiver.FILE_EXTENSION)) {
             Printer.println("ignored.", printOutput);
             return false;
         }

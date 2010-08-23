@@ -22,7 +22,8 @@ import java.util.zip.GZIPOutputStream;
  * @author albus
  */
 public class Archiver {
-    public static final int MAGIC_NUMBER = 1095516754;
+    public static final String FILE_EXTENSION = ".alb";
+    public static final int MAGIC_NUMBER_ALBR = 1095516754;
     private static Archiver instance;
     private Archiver() {}
 
@@ -110,7 +111,7 @@ public class Archiver {
 
                     //Writing to file
                     DataOutputStream doutf = new DataOutputStream(fout);
-                    doutf.writeInt(MAGIC_NUMBER); //write magic number
+                    doutf.writeInt(MAGIC_NUMBER_ALBR); //write magic number
                     doutf.writeInt(crc32);
                     doutf.write(contents);
                     doutf.close();
