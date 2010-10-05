@@ -69,11 +69,22 @@ public class Archiver {
                         din.readFully(contents);
                         doutb.writeUTF(files[i].getName());
 
-                        if (files[i].getName().toLowerCase().endsWith(".txt")) {
-                            //Note XML files are not compressed in order to
-                            //allow "painless" fast-reads
+                        if ((files[i].getName().toLowerCase().endsWith(".txt")
+                          || files[i].getName().toLowerCase().endsWith(".alt"))
+                          && files[i].length() > 256) {
+                            /*
+                             * Compressing only .txt and .alt files
+                             * if file is less than 256 bytes in length
+                             * it won't be compressed, as there is a
+                             * bug with compressing/decompressing very
+                             * small files with gzip
+                             */
 
-                            //gzip compression for txt files
+                            /*
+                             * Note XML files are not compressed in order to
+                             *allow "painless" fast-reads
+                             */
+
                             gzip.write(contents, 0, contents.length);
                             gzip.finish(); //call finish to flush zipped content
 
